@@ -1,32 +1,23 @@
 package ui;
 
-import javafx.application.Application;
-
+import bll.UserBL;
+import bll.UserBusiness;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-import user.User;
-import user.UserBL;
 
-public class Login extends Application
-{
+@SuppressWarnings("restriction")
+public class Login{
 	
-	Stage window;
 	
-	public static void main(String args[]){
+	private static Stage window;
+
+	public static void display(){
 		
-		launch(args);
-		
-	}
-	
-	@SuppressWarnings("restriction")
-	public void start(Stage primaryStage) throws Exception
-	{
-		
-		window = primaryStage;
-		window.setTitle("Tournament");
+		window = new Stage();	
+		window.setTitle("Login");
 		
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -46,7 +37,7 @@ public class Login extends Application
 		GridPane.setConstraints(passLabel, 0, 5);
 		
 		//pass text
-		TextField passInput = new TextField();
+		PasswordField passInput = new PasswordField();
 		GridPane.setConstraints(passInput, 1, 5);
 		
 		//login button
@@ -87,8 +78,7 @@ public class Login extends Application
 		
 	}
 	
-	private void closeProgram()
-	{
+	private static void closeProgram(){
 		
 		boolean answer = ConfirmBox.display("Confirmation", "Are you sure you want to quit?");
 		
@@ -98,32 +88,20 @@ public class Login extends Application
 	}
 	
 	//checks the database for the credentials
-	private void loginProgram(TextField email, TextField pass)
-	{
+	private static void loginProgram(TextField email, TextField pass){
 		
 		//System.out.println("Login request sent");
 		
 		String emailInput = email.getText();
 		String passInput = pass.getText();
 		
-		User credentials = UserBL.findAccountByEmail(emailInput);
-		boolean checkCredentials = false;
+		UserBusiness ubl = new UserBL();
+		boolean checkCredentials = ubl.authenticate(emailInput, passInput);
 		
-		if(credentials != null)
-		{
-			
-			if(credentials.getPassword().equals(passInput))
-				checkCredentials = true;
-			else
-				checkCredentials = false;			
-			
-		}
-		
-		if(checkCredentials)
-		{
+		if(checkCredentials){
 			
 			window.close();
-			AppUI.display(credentials);
+			AppUI.display(emailInput);
 			//System.out.println(credentials.getID());
 			
 		}
@@ -133,8 +111,7 @@ public class Login extends Application
 	}
 	
 	//creates a register window used for creating a new account
-	private void registerProgram()
-	{
+	private static void registerProgram()	{
 		
 		Registration.display();
 		

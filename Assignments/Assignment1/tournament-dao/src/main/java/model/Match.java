@@ -1,10 +1,4 @@
-package match;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import game.Game;
-import user.User;
+package model;
 
 public class Match 
 {
@@ -18,14 +12,21 @@ public class Match
 	private int playerOneGames;
 	private int playerTwoGames;
 	
-	//add an int representing the game winner's id
-	//add an int to check if the match has finished
-	//add both previous to the database
+	private int matchFinished;
 	
-	//private List<Game> gameList;
+	public Match() {
+		
+		playerOne = 0;
+		playerTwo = 0;
+		
+		playerOneGames = 0;
+		playerTwoGames = 0;
+		
+		matchFinished = -1;
+		
+	}
 	
-	public Match(int p1, int p2)
-	{
+	public Match(int p1, int p2)	{
 		
 		playerOne = p1;
 		playerTwo = p2;
@@ -33,7 +34,19 @@ public class Match
 		playerOneGames = 0;
 		playerTwoGames = 0;
 		
+		matchFinished = -1;
+		
 	}
+	
+	public int getMatchFinished() {
+		return matchFinished;
+	}
+
+	public void setMatchFinished(int matchFinished) {
+		this.matchFinished = matchFinished;
+	}
+
+	
 	
 	/*public ArrayList<Game> getGameList()
 	{

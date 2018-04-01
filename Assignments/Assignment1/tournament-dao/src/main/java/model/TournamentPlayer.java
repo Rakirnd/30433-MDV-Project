@@ -1,4 +1,4 @@
-package tournament;
+package model;
 
 public class TournamentPlayer {
 	

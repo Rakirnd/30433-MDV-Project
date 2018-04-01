@@ -1,15 +1,11 @@
 package ui;
 
 import javafx.stage.*;
-import user.User;
-import user.UserBL;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import bll.UserBL;
 import javafx.geometry.*;
 
 public class Registration
@@ -37,13 +33,17 @@ public class Registration
 		Label pass = new Label();
 		pass.setText("Password: ");
 		
-		TextField passInput = new TextField();
+		Label confPass = new Label();
+		confPass.setText("Confirm Password: ");
+		
+		PasswordField passInput = new PasswordField();
+		PasswordField confPassInput = new PasswordField();
 		
 		Button regButton = new Button("Register");
 		regButton.setOnAction(e -> {
 			
 			e.consume();
-			regProgram(emailInput, passInput);
+			regProgram(emailInput, passInput, confPassInput);
 			
 		});
 		
@@ -64,10 +64,13 @@ public class Registration
 		GridPane.setConstraints(pass, 0, 8);
 		GridPane.setConstraints(passInput, 1, 8, 2, 1);
 		
-		GridPane.setConstraints(regButton, 0, 12);
-		GridPane.setConstraints(closeButton, 1, 12);
+		GridPane.setConstraints(confPass, 0, 12);
+		GridPane.setConstraints(confPassInput, 1, 12, 2, 1);
 		
-		grid.getChildren().addAll(reg, email, emailInput, pass, passInput, regButton, closeButton);
+		GridPane.setConstraints(regButton, 0, 16);
+		GridPane.setConstraints(closeButton, 1, 16);
+		
+		grid.getChildren().addAll(reg, email, emailInput, pass, passInput, regButton, closeButton, confPass, confPassInput);
 		
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
@@ -76,57 +79,40 @@ public class Registration
 	}
 	
 	@SuppressWarnings("restriction")
-	private static void regProgram(TextField email, TextField pass)
+	private static void regProgram(TextField email, PasswordField pass, PasswordField confPass)
 	{
 		
 		if(email.getText() == "" || pass.getText() == "")
 			AlertBox.display("Creation Failed!", "Please provide required input!");
 		
-		if(!checkDuplicates(email.getText()))
+		UserBL ubl = new UserBL();
+		
+		if(!ubl.checkDuplicates(email.getText()))
 		{
 			
-			if(checkEmailFormat(email.getText()))
+			if(ubl.checkEmailFormat(email.getText()))
 			{
 				
-				User u = new User(email.getText(), pass.getText());
+				if(pass.getText().equals(confPass.getText())) {
+					
+					ubl.registerUser(email.getText(), pass.getText());
+					
+					System.out.println("Registration request sent!");
+					AlertBox.display("Creation Successful!", "Your account has been created!");
+					
+				}
+				else
+					AlertBox.display("Creation Failed!", "Passwords don't match!");
 				
-				int id = UserBL.registerUser(u);
 				
-				System.out.println("Registration request sent!");
-				AlertBox.display("Creation Successful!", "Your account has been created!");
-				
-				u.setID(id);
 				
 			}
 			else
 				AlertBox.display("Creation Failed!", "Invalid Email!");
-				
-				
+					
 		}
 		else
 			AlertBox.display("Creation Failed!", "Email already in use!");
-		
-	}
-	
-	private static boolean checkDuplicates(String email)
-	{
-		
-		User u = UserBL.findAccountByEmail(email);
-		
-		if(u != null)
-			return true;
-		
-		return false;
-		
-	}
-	
-	private static boolean checkEmailFormat(String email)
-	{
-		
-		Pattern pattern = Pattern.compile("^.+@.+\\..+$");
-		Matcher matcher = pattern.matcher(email);
-		
-		return matcher.find();
 		
 	}
 	

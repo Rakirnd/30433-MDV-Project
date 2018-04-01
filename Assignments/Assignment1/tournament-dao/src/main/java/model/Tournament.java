@@ -1,11 +1,4 @@
-package tournament;
-
-import java.util.List;
-
-import match.Match;
-import user.User;
-
-import java.util.ArrayList;
+package model;
 
 public class Tournament
 {
@@ -15,6 +8,7 @@ public class Tournament
 	private String tournamentDate;
 	private String place;
 	private int prizePool;
+	private int isFinished;
 	
 	
 	/*private User winner;
@@ -24,6 +18,14 @@ public class Tournament
 	private boolean isRegistrationOpen;
 	private boolean isTournamentOpen;*/
 	
+	public int getIsFinished() {
+		return isFinished;
+	}
+
+	public void setIsFinished(int isFinished) {
+		this.isFinished = isFinished;
+	}
+
 	public Tournament()
 	{
 		

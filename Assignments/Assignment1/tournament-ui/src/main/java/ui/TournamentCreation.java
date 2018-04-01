@@ -1,11 +1,12 @@
 package ui;
 
 import javafx.stage.*;
-import tournament.Tournament;
-import tournament.TournamentBL;
+import model.Tournament;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import bll.TournamentBL;
+import bll.TournamentBusiness;
 import javafx.geometry.*;
 
 public class TournamentCreation
@@ -114,9 +115,8 @@ public class TournamentCreation
 		t.setTournamentDate(dateInput.getText());
 		t.setPrizePool(Integer.parseInt(poolInput.getText())); //should check if not a number
 		
-		int id = TournamentBL.registerTournament(t);
-		
-		t.setId(id);
+		TournamentBusiness tb = new TournamentBL();
+		tb.registerTournament(t);
 			
 		//check For Non-Null input();
 		//register in database

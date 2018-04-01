@@ -1,30 +1,19 @@
 package ui;
 
 import javafx.stage.*;
-import match.Match;
-import match.MatchBL;
-import tournament.Tournament;
-import tournament.TournamentBL;
-import tournament.TournamentPlayer;
-import tournament.TournamentPlayerBL;
-import user.User;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
-import java.util.Vector;
-
 import javafx.geometry.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
+@SuppressWarnings("restriction")
 public class AppUI {
 	
 	private static Stage window;
-	private static Scene appScene, tournamentScene;
-	private static User loggedInUser;
+	private static String loggedInUser;
 	
-	@SuppressWarnings("restriction")
-	public static void display(User loggedUser)
+	public static void display(String loggedUser)
 	{
 		
 		window = new Stage();
@@ -47,14 +36,21 @@ public class AppUI {
 			
 		});
 		
-		/*Button logOut = new Button("Log Out");
+		Button viewAccountButton = new Button("View Account");
+		viewAccountButton.setOnAction(e -> {
+			
+			e.consume();
+			viewAccount();
+			
+		});
+		
+		Button logOut = new Button("Log Out");
 		logOut.setOnAction(e -> {
 			
 			e.consume();
-			window.close();
-			startLoginScreen();
+			logOut();
 			
-		});*/
+		});
 		
 		window.setOnCloseRequest(e -> {
 			
@@ -69,22 +65,22 @@ public class AppUI {
 		grid.setVgap(8);
 		grid.setHgap(10);
 		
-		GridPane.setConstraints(welcome, 1, 0);
-		GridPane.setConstraints(question, 1, 1);
+		GridPane.setConstraints(welcome, 0, 0, 3, 1, HPos.CENTER, VPos.CENTER);
+		GridPane.setConstraints(question, 0, 1, 3, 1, HPos.CENTER, VPos.CENTER);
 		
-		GridPane.setConstraints(tournamentButton, 1, 5);
-		//GridPane.setConstraints(logOut, 0, 5);
+		GridPane.setConstraints(tournamentButton, 0, 5, 1, 1, HPos.CENTER, VPos.CENTER);
+		GridPane.setConstraints(viewAccountButton, 1, 5, 1, 1, HPos.CENTER, VPos.CENTER);
+		GridPane.setConstraints(logOut, 2, 5, 1, 1, HPos.CENTER, VPos.CENTER);
 		
-		grid.getChildren().addAll(welcome, question, tournamentButton);
+		grid.getChildren().addAll(welcome, question, tournamentButton, viewAccountButton, logOut);
 		
-		appScene = new Scene(grid);
+		Scene appScene = new Scene(grid);
 		window.setScene(appScene);
 		window.show();
 		
 	}
 	
-	private static void closeProgram()
-	{
+	private static void closeProgram()	{
 		
 		boolean answer = ConfirmBox.display("Confirmation", "Are you sure you want to quit?");
 		
@@ -93,136 +89,34 @@ public class AppUI {
 		
 	}
 	
-	//changes to the Ongoing Tournaments scene
-	@SuppressWarnings("restriction")
-	private static void changeToTournaments()
-	{
+	//log out script
+	private static void logOut() {
 		
-		//tournament table
-		TableView<Tournament> tournamentTable;
+		boolean answer = ConfirmBox.display("Confirmation", "Are you sure you want to log out?");
 		
-		//table columns
-		//id
-		TableColumn<Tournament, Integer> idColumn = new TableColumn<> ("ID");
-		idColumn.setMinWidth(50);
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		
-		//name
-		TableColumn<Tournament, String> nameColumn = new TableColumn<> ("Name");
-		nameColumn.setMinWidth(200);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-				
-		//date
-		TableColumn<Tournament, String> dateColumn = new TableColumn<> ("Date");
-		dateColumn.setMinWidth(100);
-		dateColumn.setCellValueFactory(new PropertyValueFactory<>("tournamentDate"));
-				
-		//place
-		TableColumn<Tournament, String> placeColumn = new TableColumn<> ("Place");
-		placeColumn.setMinWidth(200);
-		placeColumn.setCellValueFactory(new PropertyValueFactory<>("place"));
-				
-		//pool
-		TableColumn<Tournament, Integer> prizeColumn = new TableColumn<> ("Prize");
-		prizeColumn.setMinWidth(100);
-		prizeColumn.setCellValueFactory(new PropertyValueFactory<>("prizePool"));
-				
-		
-		tournamentTable = new TableView<>();
-		tournamentTable.setItems(TournamentBL.getAllTournaments());
-		tournamentTable.getColumns().addAll(idColumn, nameColumn, dateColumn, placeColumn, prizeColumn);
-		
-		Button viewTournament = new Button("View Tournament");
-		viewTournament.setOnAction(e -> {
+		if(answer) {
 			
-			Tournament t;
-			
-			if(tournamentTable.getSelectionModel().getSelectedItem() != null)			
-			{	
-				
-				t = tournamentTable.getSelectionModel().getSelectedItem();
-				viewTournamentMatches(t);
-				
-			}
-			
-		});
-		
-		//return to main app window
-		Button backButton = new Button("Back");
-		backButton.setOnAction(e -> window.setScene(appScene));
-		
-		//enroll button
-		Button enrollButton = new Button("Enroll");
-		enrollButton.setOnAction(e -> {
-			
-			Tournament t;
-			
-			if(tournamentTable.getSelectionModel().getSelectedItem() != null)			
-			{	
-				
-				t = tournamentTable.getSelectionModel().getSelectedItem();
-				enrolmentScript(t);
-				
-			}
-			
-			
-			
-		});
-		
-		//create tournament button
-		Button createTournament = new Button("Create Tournament");
-		createTournament.setOnAction(e -> {
-			
-			e.consume();
-			createTournament();
-			
-		});
-		
-		if(loggedInUser.getIsAdmin() == 1)
-			createTournament.setVisible(true);
-		else
-			createTournament.setVisible(false);
-		
-		GridPane grid = new GridPane();
-		GridPane.setConstraints(tournamentTable, 0, 0);
-		GridPane.setConstraints(viewTournament, 0, 2);
-		GridPane.setConstraints(enrollButton, 0, 4);
-		GridPane.setConstraints(backButton, 0, 6);
-		GridPane.setConstraints(createTournament, 0, 8);
-		
-		grid.getChildren().addAll(tournamentTable, backButton, enrollButton, createTournament, viewTournament);
-		
-		tournamentScene = new Scene(grid);
-		window.setScene(tournamentScene);
-	
-		
-	}
-	
-	private static void createTournament()
-	{
-		
-		TournamentCreation.display();
-		
-	}
-	
-	private static void viewTournamentMatches(Tournament t)
-	{
-		
-		Vector<TournamentPlayer> tp = TournamentBL.getPlayersFromTournament(t);
-		
-		if(tp.size() < 8)
-		{
-			
-			AlertBox.display("Failed!", "The tournament is not open yet!");
-			return;
+			window.close();
+			Login.display();
 			
 		}
 		
-		MatchDisplay.display(t, tp, loggedInUser);
+	}
+	
+	//script for viewing the user account
+	private static void viewAccount() {
+		
+		AccountView.display(loggedInUser);
 		
 	}
 	
-	private static void enrolmentScript(Tournament t)
+	//changes to the Ongoing Tournaments scene
+	private static void changeToTournaments(){
+		
+		TournamentView.display(loggedInUser);
+		
+	}
+	/*private static void enrolmentScript(Tournament t)
 	{
 		
 		//get all enrolled players and check if registrant is already registered
@@ -271,6 +165,6 @@ public class AppUI {
 		}
 		
 		
-	}
+	}*/
 
 }

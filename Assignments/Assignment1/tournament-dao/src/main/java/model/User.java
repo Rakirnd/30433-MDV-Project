@@ -1,6 +1,4 @@
-package user;
-
-import user.UserData;
+package model;
 
 public class User
 {
