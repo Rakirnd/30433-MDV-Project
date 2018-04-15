@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="model.userData.UserData" table="userdata">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="userID" type="int">
+            <column name="userID" />
+        </property>
+        <property name="firstName" type="java.lang.String">
+            <column name="firstName" />
+        </property>
+        <property name="lastName" type="java.lang.String">
+            <column name="lastName" />
+        </property>
+        <property name="balance" type="int">
+        	<column name="balance" />
+        </property>
+    </class>
+</hibernate-mapping>

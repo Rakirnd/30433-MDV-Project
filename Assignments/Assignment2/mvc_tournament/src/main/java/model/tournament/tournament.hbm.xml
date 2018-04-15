@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="model.tournament.Tournament" table="tournament">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="tournamentType" type="java.lang.String">
+            <column name="tournamentType" />
+        </property>
+        <property name="entryFee" type="int">
+        	<column name="entryFee" />
+        </property>
+        <property name="prizePool" type="int">
+            <column name="prizePool" />
+        </property>
+         <property name="status" type="java.lang.String">
+            <column name="status" />
+        </property>
+        <property name="winner" type="int">
+            <column name="winner" />
+        </property>
+        <property name="isFinished" type="int">
+        	<column name="isFinished" />
+        </property>
+    </class>
+</hibernate-mapping>

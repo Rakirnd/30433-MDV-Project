@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="model.match.MatchC" table="matchc">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="tournID" type="int">
+            <column name="tournID" />
+        </property>
+        <property name="playerOne" type="int">
+            <column name="playerOne" />
+        </property>
+        <property name="playerTwo" type="int">
+        	<column name="playerTwo" />
+        </property>
+        <property name="playerOneGames" type="int">
+            <column name="playerOneGames" />
+        </property>
+        <property name="playerTwoGames" type="int">
+            <column name="playerTwoGames" />
+        </property>
+        <property name="matchFinished" type="int">
+        	<column name="matchFinished" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="model.game.Game" table="game">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="matchID" type="int">
+            <column name="MatchID" />
+        </property>
+        <property name="playerOneScore" type="int">
+            <column name="PlayerOneScore" />
+        </property>
+        <property name="playerTwoScore" type="int">
+        	<column name="PlayerTwoScore" />
+        </property>
+        <property name="gameFinished" type="int">
+        	<column name="gameFinished" />
+        </property>
+    </class>
+</hibernate-mapping>
