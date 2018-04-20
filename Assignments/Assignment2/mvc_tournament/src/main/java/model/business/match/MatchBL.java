@@ -3,22 +3,22 @@ package model.business.match;
 import java.util.List;
 import java.util.Vector;
 
+import dataAccess.dao.MatchDAI;
 import model.business.tournamentPlayer.TournamentPlayerBL;
 import model.business.tournamentPlayer.TournamentPlayerBusiness;
 import model.business.user.UserBL;
 import model.business.user.UserBusiness;
 import model.match.MatchC;
-import model.match.MatchDA;
-import model.match.MatchDAI;
 import model.tournament.Tournament;
 import model.tournamentPlayer.TournamentPlayer;
 import model.user.User;
+import view.StartApp;
 
 public class MatchBL implements MatchBusiness{
 	
 	public MatchC findByID(int mid){
 		
-		MatchDAI aDAO = new MatchDA();
+		MatchDAI aDAO = StartApp.dataAccessWay.getMatchDao();
 		MatchC am = aDAO.findById(mid);
 		
 		return am;
@@ -27,7 +27,7 @@ public class MatchBL implements MatchBusiness{
 	
 	public List<MatchC> findAllMatchesByTournament(int tid){
 		
-		MatchDAI aDAO = new MatchDA();
+		MatchDAI aDAO = StartApp.dataAccessWay.getMatchDao();
 		List<MatchC> am = aDAO.findAllMatchesByTournamentId(tid);
 		
 		return am;
@@ -82,7 +82,7 @@ public class MatchBL implements MatchBusiness{
 		if(u == null)
 			return null;
 		
-		MatchDAI mdao = new MatchDA();
+		MatchDAI mdao = StartApp.dataAccessWay.getMatchDao();
 		
 		List<MatchC> playerMatches = mdao.findAllMatchesOfPlayer(u.getId());
 		
@@ -99,14 +99,14 @@ public class MatchBL implements MatchBusiness{
 	
 	public void insertMatch(MatchC m){
 		
-		MatchDAI aDAO = new MatchDA();
+		MatchDAI aDAO = StartApp.dataAccessWay.getMatchDao();
 		aDAO.insert(m);
 		
 	}
 	
 	public void updateMatch(int id, MatchC m){
 		
-		MatchDAI aDAO = new MatchDA();
+		MatchDAI aDAO = StartApp.dataAccessWay.getMatchDao();
 		aDAO.update(id, m);
 		
 	}

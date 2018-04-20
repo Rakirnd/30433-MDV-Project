@@ -4,6 +4,8 @@ import controller.LoginController;
 import controller.UtilityController;
 import javafx.application.Application;
 import javafx.stage.*;
+import util.DaoFactory;
+import util.DaoFactory.Type;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -12,10 +14,13 @@ import javafx.geometry.*;
 public class StartApp extends Application{
 
 	private static Stage window;
+	public static DaoFactory dataAccessWay;
 	
 	public static void main(String args[]){
 		
+		dataAccessWay = DaoFactory.getInstance(Type.HIBERNATE);
 		launch(args);
+		
 		
 	}
 	

@@ -43,13 +43,12 @@ public class Login{
 		Button loginButton = new Button("Login");
 		GridPane.setConstraints(loginButton, 0, 2);
 		
-		loginButton.setOnAction(e -> LoginController.loginProgram(emailInput, passInput, window));
-		
 		//create new account button
 		Button regButton = new Button("Create Account");
 		GridPane.setConstraints(regButton, 1, 2);
 		
-		regButton.setOnAction(e -> LoginController.registerProgram());
+		LoginController.bindLoginButton(loginButton, emailInput, passInput, window);
+		LoginController.bindRegisterButton(regButton);
 		
 		grid.getChildren().addAll(emailLabel, emailInput, passLabel, passInput, loginButton, regButton);
 		

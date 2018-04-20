@@ -2,19 +2,20 @@ package model.business.tournament;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dataAccess.dao.TournamentDAI;
 import javafx.collections.*;
 import model.business.tournamentPlayer.TournamentPlayerBL;
 import model.business.tournamentPlayer.TournamentPlayerBusiness;
 import model.tournament.Tournament;
-import model.tournament.TournamentDA;
-import model.tournament.TournamentDAI;
 import model.tournamentPlayer.TournamentPlayer;
+import view.StartApp;
 
 public class TournamentBL implements TournamentBusiness{
 	
 	public ObservableList<Tournament> getAllTournaments() {
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		List<Tournament> tData = aDAO.findAll();
 		ObservableList<Tournament> at = FXCollections.observableArrayList(tData);
 		
@@ -24,7 +25,7 @@ public class TournamentBL implements TournamentBusiness{
 	
 	public ObservableList<Tournament> getFilteredItems(String category, String type){
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		List<Tournament> tData = aDAO.findAll();
 		List<Tournament> filteredData = new ArrayList<Tournament>();
 		
@@ -43,7 +44,7 @@ public class TournamentBL implements TournamentBusiness{
 	
 	public ObservableList<Tournament> getSearchedForItems(String searchText){
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		List<Tournament> tData = aDAO.findLike(searchText);
 		ObservableList<Tournament> at = FXCollections.observableArrayList(tData);
 		
@@ -53,21 +54,28 @@ public class TournamentBL implements TournamentBusiness{
 	
 	public Tournament findById(int tid) {
 		
-		TournamentDAI tdao = new TournamentDA();
+		TournamentDAI tdao = StartApp.dataAccessWay.getTournamentDao();
 		return tdao.findById(tid);
 		
 	}
 	
 	public void registerTournament(Tournament t)	{
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		aDAO.insert(t);
+		
+	}
+	
+	public void updateTournamentPrize(Tournament t) {
+		
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
+		aDAO.updatePrize(t.getId(), t);
 		
 	}
 	
 	public void updateStatusWinner(int tid, Tournament t) {
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		aDAO.updateStatus(tid, t);
 		aDAO.updateWinner(tid, t);
 		
@@ -87,7 +95,7 @@ public class TournamentBL implements TournamentBusiness{
 	
 	public void checkAllTournamentStatus() {
 		
-		TournamentDAI aDAO = new TournamentDA();
+		TournamentDAI aDAO = StartApp.dataAccessWay.getTournamentDao();
 		List<Tournament> tData = aDAO.findAll();
 		
 		for(Tournament t: tData) {

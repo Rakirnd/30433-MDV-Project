@@ -1,6 +1,8 @@
 package model.business.game;
 
 import java.util.List;
+
+import dataAccess.dao.GameDAI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.business.match.MatchBL;
@@ -8,30 +10,29 @@ import model.business.match.MatchBusiness;
 import model.business.user.UserBL;
 import model.business.user.UserBusiness;
 import model.game.Game;
-import model.game.GameDA;
-import model.game.GameDAI;
 import model.match.MatchC;
 import model.user.User;
+import view.StartApp;
 
 public class GameBL implements GameBusiness{
 
 	public int insertGame(Game g) {
 		
-		GameDAI gda = new GameDA();
+		GameDAI gda = StartApp.dataAccessWay.getGameDao();
 		return gda.insert(g);
 		
 	}
 
 	public void updateGame(int gid, Game g) {
 		
-		GameDAI gda = new GameDA();
+		GameDAI gda = StartApp.dataAccessWay.getGameDao();
 		gda.update(gid, g);
 		
 	}
 
 	public ObservableList<Game> getAllGamesInMatch(MatchC m) {
 		
-		GameDAI gda = new GameDA();
+		GameDAI gda = StartApp.dataAccessWay.getGameDao();
 		List<Game> games = gda.findAllGamesByMatchId(m.getId());
 		
 		if(games.size() == 0) {
@@ -54,7 +55,7 @@ public class GameBL implements GameBusiness{
 	
 	public Game findById(int gid) {
 		
-		GameDAI gda = new GameDA();
+		GameDAI gda = StartApp.dataAccessWay.getGameDao();
 		return gda.findById(gid);
 		
 	}

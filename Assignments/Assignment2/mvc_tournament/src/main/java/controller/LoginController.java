@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -44,6 +45,17 @@ public class LoginController {
 	public static void registerProgram()	{
 		
 		Registration.display();
+		
+	}
+	
+	public static void bindLoginButton(Button loginButton, TextField emailInput, TextField passInput, Stage window) {
+		
+		loginButton.setOnAction(e -> loginProgram(emailInput, passInput, window));
+		
+	}
+	public static void bindRegisterButton(Button regButton) {
+		
+		regButton.setOnAction(e -> LoginController.registerProgram());
 		
 	}
 	

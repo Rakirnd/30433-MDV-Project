@@ -1,11 +1,11 @@
 package model.business.userData;
 
+import dataAccess.dao.UserDataDAI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.user.User;
 import model.userData.UserData;
-import model.userData.UserDataDA;
-import model.userData.UserDataDAI;
+import view.StartApp;
 
 public class UserDataBL implements UserDataBusiness{
 	
@@ -14,35 +14,35 @@ public class UserDataBL implements UserDataBusiness{
 		UserData ud = new UserData(firstName, lastName);
 		ud.setUserID(userID);
 		
-		UserDataDAI aDAO = new UserDataDA();
+		UserDataDAI aDAO = StartApp.dataAccessWay.getUserDataDao();
 		aDAO.insert(ud);
 		
 	}
 	
 	public void insertUserData(UserData ud) {
 		
-		UserDataDAI aDAO = new UserDataDA();
+		UserDataDAI aDAO = StartApp.dataAccessWay.getUserDataDao();
 		aDAO.insert(ud);
 		
 	}
 	
 	public UserData findDatabyUserId(int uid) {
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		return uDAO.findByUserId(uid);	
 		
 	}
 	
 	public UserData findById(int id) {
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		return uDAO.findById(id);	
 		
 	}
 	
 	public ObservableList<UserData> findAllUserData(){
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		ObservableList<UserData> ud = FXCollections.observableArrayList(uDAO.findAll());
 		
 		return ud;
@@ -51,14 +51,14 @@ public class UserDataBL implements UserDataBusiness{
 	
 	public void updateUserData(int id, UserData ud) {
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		uDAO.update(id, ud);
 		
 	}
 	
 	public void increaseBalance(UserData ud, int money) {
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		ud.setBalance(ud.getBalance() + money);
 		
 		uDAO.update(ud.getId(), ud);
@@ -67,7 +67,7 @@ public class UserDataBL implements UserDataBusiness{
 	
 	public void decreaseBalance(UserData ud, int money) {
 		
-		UserDataDAI uDAO = new UserDataDA();
+		UserDataDAI uDAO = StartApp.dataAccessWay.getUserDataDao();
 		ud.setBalance(ud.getBalance() - money);
 		
 		if(ud.getBalance() < 0)

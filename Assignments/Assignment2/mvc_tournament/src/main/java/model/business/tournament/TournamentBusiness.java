@@ -11,6 +11,8 @@ public interface TournamentBusiness {
 	
 	public ObservableList<Tournament> getSearchedForItems(String searchText);
 	public ObservableList<Tournament> getFilteredItems(String category, String type);
+	
+	public void updateTournamentPrize(Tournament t);
 	public void updateStatusWinner(int tid, Tournament t);
 	
 	public boolean isTournamentOpen(Tournament t);
