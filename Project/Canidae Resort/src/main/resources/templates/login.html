@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/login_style.css" />
+		<link rel="stylesheet" th:href="@{/css/login_style.css}" href="../../static/css/login_style.css" />
+		<title>Canidae Resort</title>
+
+	</head>
+
+
+	<body>
+		<div id="main_wrapper">
+            <header>
+
+                <div id="main_title">
+                    <img src="../../css/images/CR_Logo.jpg" alt="Canidae Resort Logo" id="logo" />
+                    <h1>Canidae Resort</h1>
+                    <h2>Dog Hotel Searching App</h2>
+                </div>
+
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="index">Home</a></li>
+                        <li><a href="hotels">Hotels</a></li>
+                        <li><a href="login">Login</a></li>
+                    </ul>
+                </nav>
+
+            </header>
+		
+		</div>
+		
+		<h1 class="welcome">Login</h1>
+		
+		<form action="#" th:action="@{/login}" th:object="${login}" method="post">
+    		<p>Username: <input type="text" th:field="*{username}" /></p>
+        	<p>Password: <input type="text" th:field="*{password}" /></p>
+        	<p><input type="submit" value="Login" class="button"/> 
+        		<input type="reset" value="Reset" class="button"/></p>
+    	</form>
+
+	</body>
+
+</html>

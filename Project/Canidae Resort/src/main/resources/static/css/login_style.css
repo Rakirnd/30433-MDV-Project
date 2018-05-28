@@ -1,0 +1,139 @@
+@font-face{
+	
+	font-family: 'custom01';
+    src: url('fonts/AlexBrush-Regular.ttf');
+}
+
+#main_wrapper
+{
+
+    margin: auto;
+
+}
+
+#logo
+{
+	height: 7.5%;
+    width: 7.5%;
+}
+
+#main_title
+{
+    display: inline-block;
+}
+
+header h1
+{
+    font-family: custom01, serif;
+    font-size: 2.5em;
+    font-weight: normal;
+}
+
+#logo, header h1
+{
+    display: inline-block;
+    margin-bottom: 0px;
+}
+
+header h2
+{
+    font-family: custom01, serif;
+    font-size: 1.3em;
+    margin-top: 0px;
+    font-weight: normal;
+}
+
+/* Navigation */
+
+.navbar
+{
+	text-align: right;
+}
+
+nav
+{
+
+    display: inline-block;
+    text-align: right;
+    float: right;
+
+}
+
+nav ul
+{
+	
+    list-style-type: none;
+	
+}
+
+
+nav li
+{
+
+    display: inline-block;
+    margin-right: 15px;
+
+}
+
+nav a
+{
+
+    font-size: 1.6em;
+	font-family: custom01, serif;
+    color: #181818;
+    padding-bottom: 3px;
+    text-decoration: none;
+
+}
+
+nav a:hover
+{
+
+    color: #760001;
+    border-bottom: 3px solid #760001;
+
+}
+	
+.welcome
+{
+
+	color: green;
+	font-family: custom01, "Comic Sans MS", Verdana, sans-serif;
+	font-size: 75px;
+	text-align: center;
+	text-shadow: 2px 2px 4px black;
+	
+
+}
+
+body
+{
+
+    background-image: url("images/dog_field_index.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-origin: border-box;
+	background-size: cover;
+
+}
+
+p
+{
+	
+	color: green;
+	font-family: custom01, "Comic Sans MS", Verdana, sans-serif;
+	font-size: 25px;
+	text-align: center;
+	
+}
+
+.button
+{
+	
+	color: green;
+	font-family: custom01, "Comic Sans MS", Verdana, sans-serif;
+	font-size: 20px;
+	text-align: center;
+	
+}
